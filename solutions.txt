@@ -1,13 +1,22 @@
 # Part A:
 
 ## Recovered password
+
 [('cecio', '02361267'), ('bjacobsen', '22005597')]
 
 ## Pseudocode for attack
 
+for all passwords of length n
+    if hashed user,password,salt == known hash
+        found correct password
+
 ## Worst case running time
 
 ## Discussion of current proposal and suggestions for improvement
+    1. Stricter password requirements. Including lower case chars + upper case
+       extends running time to O(62^n). Symbols make this larger.
+    2. Slower hashing algorithms than sha256 will make it more difficult to 
+       go through all cases.
 
 
 # Part B:
