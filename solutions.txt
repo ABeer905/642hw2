@@ -1,6 +1,7 @@
 # Part A:
 
 ## Recovered password
+[('cecio', '02361267'), ('bjacobsen', '22005597')]
 
 ## Pseudocode for attack
 
