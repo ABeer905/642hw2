@@ -1,0 +1,24 @@
+# Part A:
+
+## Recovered password
+
+## Pseudocode for attack
+
+## Worst case running time
+
+## Discussion of current proposal and suggestions for improvement
+
+
+# Part B:
+
+## Discussion of the current scheme
+
+## Suggestions for improving the scheme
+
+
+# Part C:
+
+## Secret code
+
+## Explanation
+
