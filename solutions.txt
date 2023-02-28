@@ -22,8 +22,18 @@ for all passwords of length n
 # Part B:
 
 ## Discussion of the current scheme
+    The implementation of the encryption scheme does provide integrity
+    but not authenticity. Therefore, anyone can modify the ciphered message
+    without the key and as long as the tag is also updated there is no way
+    to tell. 
+    In this specific case the 11th byte of the iv can be modified by 0x08
+    inorder to change the digit 1 in 12 to a 9 making it 92. This is because
+    the $ number is within the first block which is xored with the iv.
 
 ## Suggestions for improving the scheme
+    I would look into implementing a MAC. This is provided in the Crypto
+    api with the verify(mac_tag) function. Or, the scheme could hash the
+    key + message together so that the secret key is needed to update the tag.
 
 
 # Part C:
