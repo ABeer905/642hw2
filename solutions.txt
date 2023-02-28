@@ -2,19 +2,32 @@
 
 ## Recovered password
 
-[('cecio', '02361267'), ('bjacobsen', '22005597')]
+[('ceccio', '02361267'), ('bjacobsen', '22005597')]
 
 ## Pseudocode for attack
 
-for all passwords of length n
-    if hashed user,password,salt == known hash
-        found correct password
+found_passwords = []
+for password_length in [1, ..., 8]:
+    for each password p of length password_length:
+        for user, salt in zip(['ceccio', 'bjacobsen'], ['547750', '980166']):
+            if hash(user, p, salt) == known hash
+                found_passwords.append((user, p))
+The second for loop works by setting max_int = '9'*password_length and then 
+iterating through all ints less than this value, adding padding of leading
+0's if necessary.
 
 ## Worst case running time
+The outer for loop is repeated 8 times. The next for loop is 10^n since there are
+10 digits and each of the n positions in the password can be one of 10 digits. 
+The final for loop is just repeated twice since we have 2 users. 
+
+In total, the running time is 2*(10^8 + 10^7 + ... + 10), which is dominated by 
+its largest term, 10^8 (aka 10^n), thus, the algorithm is O(10^n). 
 
 ## Discussion of current proposal and suggestions for improvement
     1. Stricter password requirements. Including lower case chars + upper case
-       extends running time to O(62^n). Symbols make this larger.
+       extends running time to O(62^n). Symbols make this larger. Requiring 
+       longer passwords will increase n and also extend the running time.
     2. Slower hashing algorithms than sha256 will make it more difficult to 
        go through all cases.
 
@@ -41,4 +54,5 @@ for all passwords of length n
 ## Secret code
 
 ## Explanation
+
 
