@@ -35,16 +35,21 @@ its largest term, 10^8 (aka 10^n), thus, the algorithm is O(10^n).
 # Part B:
 
 ## Discussion of the current scheme
-    The implementation of the encryption scheme does provide integrity
-    but not authenticity. Therefore, anyone can modify the ciphered message
-    without the key and as long as the tag is also updated there is no way
-    to tell. 
-    In this specific case the 11th byte of the iv can be modified by 0x08
+    The implementation of the encryption scheme does provide confidentiality
+    because an attacker cannot learn what is in the message without the key.
+    Even with a chosen plaintext attack, the attacker cannot learn anything 
+    because there is a randomly-chosen IV. 
+    However, the scheme does not provide integrity (as we showed, an attacker
+    can change the message without being detected) and relatedly does not 
+    provide authenticity as there is no way to verify who sent the message.
+    
+    In this specific case the 11th byte of the IV can be modified by 0x08
     inorder to change the digit 1 in 12 to a 9 making it 92. This is because
-    the $ number is within the first block which is xored with the iv.
+    the $ number is within the first block which is xored with the IV.
 
 ## Suggestions for improving the scheme
-    I would look into implementing a MAC. This is provided in the Crypto
+    I would look into implementing a MAC so that the message and tag pair
+    are created in tandem. This is provided in the Crypto
     api with the verify(mac_tag) function. Or, the scheme could hash the
     key + message together so that the secret key is needed to update the tag.
 
@@ -52,7 +57,23 @@ its largest term, 10^8 (aka 10^n), thus, the algorithm is O(10^n).
 # Part C:
 
 ## Secret code
+    5991Edc4-52912b5d
 
 ## Explanation
+    The Diffie-Hellman protocol has 4 steps:
+    1. Agree on p and g publically - this was done for us by choosing what 
+       elliptic curve to use
+    2. We choose a random secret x and compute g^x mod p. We did this via
+       ec.generate_private_key and then used the x.public_key.public_bytes
+       variable (this is what copilot suggested -- the documentation doesn't
+       explain clearly what public_bytes does but we think it is just 
+       formatting x's public key (aka g^x) in the format the server expects)
+    3. The other party does the same thing with a random secret y and  
+       g^y mod p -- this was done on the server in the API call 
+    4. We each compute gxy = g^{xy} and a hash k=H(a). k is used to encrypt the
+       message
 
+    So, in the JSON call, the server computes c = k(m), where k is the message.
+    They send us g^y and c, and then we compute gxy = g^{xy} using g^y. From 
+    there, the existing code calculated k and unhashed the message.
 
