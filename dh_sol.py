@@ -65,8 +65,7 @@ gx = base64.urlsafe_b64encode(gx)
 
 # send gx to the server
 r = requests.get(URL + '/dh', params={ 'gx' : gx })
-print(r)
-print(r.text)
+
 # get gy = g^y and c = ciphertext
 gy = r.json()['gy']
 c = r.json()['c']
