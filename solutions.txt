@@ -56,3 +56,15 @@ its largest term, 10^8 (aka 10^n), thus, the algorithm is O(10^n).
 ## Explanation
 
 
+# EXTRA CREDIT
+
+## Password
+    Cheeseisgood!
+
+## Psuedocode for attack
+
+    On each cpu scan (password list / N cpus) passwords:
+        if password meets requirements
+            hash password
+            if hash == known hash
+                ->Password has been found
